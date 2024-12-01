@@ -45,10 +45,27 @@ namespace AdventOfCode2024.Classes
 
             return sum;
         }
+
+        private static int CalculateSimilarityScore()
+        {
+            int sum = 0;
+            List<int>[] nums = ParseInput();
+            List<int> left = nums.First();
+            List<int> right = nums.Last();
+
+            foreach (int num in left)
+            {
+                List<int> matches = right.FindAll(x => x == num);
+                sum += num * matches.Count;
+            }
+
+            return sum;
+        }
         
         protected override void CreateOutput()
         {
             File.WriteAllText(_outputPath, $"Part 1: {CalculateTotalDistance()}");
+            File.AppendAllText(_outputPath, $"\nPart 2: {CalculateSimilarityScore()}");
         }
     }
 }
