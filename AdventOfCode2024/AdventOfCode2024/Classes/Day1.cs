@@ -16,18 +16,27 @@ namespace AdventOfCode2024.Classes
             CreateOutput();
         }
 
-        private static int CalculateTotalDistance()
+        private static List<int>[] ParseInput()
         {
-            int sum = 0;
             List<int> left = [];
             List<int> right = [];
-            
+
             foreach (var line in File.ReadLines(_inputPath))
             {
                 var splitLine = line.Split(' ');
                 left.Add(Int32.Parse(splitLine.First()));
                 right.Add(Int32.Parse(splitLine.Last()));
             }
+
+            return [left, right];
+        }
+        
+        private static int CalculateTotalDistance()
+        {
+            int sum = 0;
+            List<int>[] nums = ParseInput();
+            List<int> left = nums.First();
+            List<int> right = nums.Last();
 
             left.Sort();
             right.Sort();
